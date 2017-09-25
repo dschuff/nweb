@@ -34,6 +34,13 @@ struct {
   {"tar", "image/tar" },
   {"htm", "text/html" },
   {"html","text/html" },
+  {"css","text/css" },
+  {"js","application/javascript" },
+  {"wasm","application/octet-stream" },
+  {"c","application/octet-stream" },
+  {"cc","application/octet-stream" },
+  {"map","application/octet-stream" },
+  {"txt","text/plain" },
   {0,0} };
 
 void logger(int type, char *s1, char *s2, int socket_fd)
