@@ -36,7 +36,7 @@ struct {
   {"html","text/html" },
   {"css","text/css" },
   {"js","application/javascript" },
-  {"wasm","application/octet-stream" },
+  {"wasm","application/wasm" },
   {"c","application/octet-stream" },
   {"cc","application/octet-stream" },
   {"map","application/octet-stream" },
