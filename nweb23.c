@@ -43,6 +43,8 @@ struct {
   {"txt","text/plain" },
   {0,0} };
 
+int dir_fd;
+
 void logger(int type, char *s1, char *s2, int socket_fd)
 {
   int fd ;
@@ -62,7 +64,7 @@ void logger(int type, char *s1, char *s2, int socket_fd)
   case LOG: (void)sprintf(logbuffer," INFO: %s:%s:%d",s1, s2,socket_fd); break;
   }
   /* No checks here, nothing can be done with a failure anyway */
-  if((fd = open("nweb.log", O_CREAT| O_WRONLY | O_APPEND,0644)) >= 0) {
+  if((fd = openat(dir_fd, "nweb.log", O_CREAT| O_WRONLY | O_APPEND,0644)) >= 0) {
     (void)write(fd,logbuffer,strlen(logbuffer));
     (void)write(fd,"\n",1);
     (void)close(fd);
@@ -166,6 +168,10 @@ int main(int argc, char **argv)
     (void)printf("ERROR: Bad top directory %s, see nweb -?\n",argv[2]);
     exit(3);
   }
+  if ((dir_fd = open(".", O_RDONLY)) == -1) {
+    (void)printf("ERROR: Could not open current directory: %s\n", strerror(errno));
+    exit(1);
+  }
   if(chdir(argv[2]) == -1){
     (void)printf("ERROR: Can't Change to directory %s\n",argv[2]);
     exit(4);
@@ -176,7 +182,7 @@ int main(int argc, char **argv)
   (void)signal(SIGCLD, SIG_IGN); /* ignore child death */
   (void)signal(SIGHUP, SIG_IGN); /* ignore terminal hangups */
   for(i=0;i<32;i++)
-    (void)close(i);    /* close open files */
+    if (i != dir_fd) (void)close(i);    /* close open files */
   (void)setpgrp();    /* break away from process group */
   logger(LOG,"nweb starting",argv[1],getpid());
   /* setup the network socket */
