@@ -40,6 +40,7 @@ struct {
   {"c","application/octet-stream" },
   {"cc","application/octet-stream" },
   {"map","application/octet-stream" },
+  {"mem","application/octet-stream" },
   {"txt","text/plain" },
   {0,0} };
 
