@@ -41,6 +41,9 @@ struct {
   {"cc","application/octet-stream" },
   {"map","application/octet-stream" },
   {"mem","application/octet-stream" },
+  {"nmf", "application/octet-stream" },
+  {"nexe", "application/octet-stream" },
+  {"pexe", "application/octet-stream" },
   {"txt","text/plain" },
   {0,0} };
 
