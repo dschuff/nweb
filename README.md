@@ -1,3 +1,5 @@
+This is a fork, which exists primarily to support WebAssembly and Native Client use.
+
 nweb README for version 23
 
 1) Bug fixed - was duplicating errors in the nweb.log file 
